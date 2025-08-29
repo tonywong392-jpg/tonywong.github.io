@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>复合请求</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: linear-gradient(135deg, #ff9eb5, #ffccd5);
+      overflow: hidden;
+    }
+    h1 {
+      color: #fff;
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+      animation: fadeIn 2s ease-in-out;
+    }
+    .button-container {
+      display: flex;
+      gap: 30px;
+      position: relative;
+    }
+    button {
+      padding: 15px 40px;
+      font-size: 20px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    #yesBtn {
+      background: linear-gradient(135deg, #ff3366, #ff6699);
+      color: white;
+    }
+    #yesBtn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 16px rgba(255,51,102,0.5);
+    }
+    #noBtn {
+      background-color: #fff;
+      color: #333;
+      position: relative;
+    }
+    #noBtn:hover {
+      transform: rotate(10deg);
+    }
+    .heart {
+      position: absolute;
+      top: -20px;
+      font-size: 24px;
+      color: rgba(255,255,255,0.9);
+      animation: fall linear forwards;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <h1>可以和我复合吗？ 💖</h1>
+  <div class="button-container">
+    <button id="yesBtn">可以</button>
+    <button id="noBtn">不可以</button>
+  </div>
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    function showLove() {
+      alert("太好了！我们复合啦 ❤️");
+    }
+    function moveNoBtn() {
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      noBtn.style.position = "absolute";
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "❤️";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 500);
+    ["click", "touchstart"].forEach(eventType => {
+      yesBtn.addEventListener(eventType, showLove);
+      noBtn.addEventListener(eventType, moveNoBtn);
+    });
+  </script>
+</body>
+</html>
